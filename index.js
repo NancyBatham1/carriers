@@ -1,10 +1,18 @@
-import "dotenv/config"
+import "dotenv/config";
 import express from "express";
 import sequelize from "./config/dbConnection.js";
 import Carrier from "./models/carrier.model.js";
 import TruckingCompany from "./models/trucking_companies.model.js";
+import cors from "cors";
 
 const app = express();
+app.use(
+  cors({
+    origin: process.env.FRONT_URL,
+    methods: ["POST", "PUT", "PATCH", "DELETE", "GET"],
+    credentials: true,
+  })
+);
 
 try {
   await sequelize.authenticate();
